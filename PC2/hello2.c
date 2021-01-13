@@ -13,7 +13,7 @@ int main(int argc, char **argv){
         for(i = 1; i < N; i++){
             MPI_Recv(&s, 1, MPI_BYTE, MPI_ANY_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, &sta);
         }
-        printf("Hello World with %d ready task(s)", N);
+        printf("Hello World with %d ready task(s)\n", N);
     }
     else{
         MPI_Send(&s, 1, MPI_BYTE, 0, 0, MPI_COMM_WORLD);
