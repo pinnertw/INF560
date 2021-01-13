@@ -1,0 +1,3 @@
+#!/bin/bash -l
+#SBATCH -n 4
+srun hostname

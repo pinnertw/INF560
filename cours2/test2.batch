@@ -1,0 +1,6 @@
+#!/bin/bash -l
+
+#SBATCH -n 5
+#SBATCH -N 3
+
+srun hostname
