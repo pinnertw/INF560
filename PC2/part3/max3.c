@@ -89,7 +89,7 @@ int main(int argc, char**argv) {
           for (i = 1; i < size; i++){
               MPI_Recv(&max_remote, 1, MPI_INTEGER, i, j, MPI_COMM_WORLD, &sta);
               if (max_remote > max){
-                  printf("New max (%d) found by %d\n", max_remote, i);
+                  //printf("New max (%d) found by %d\n", max_remote, i);
                   max = max_remote;
               }
           }
@@ -107,8 +107,13 @@ int main(int argc, char**argv) {
       }
       printf("\n");
 #endif
+      if (rank == 0){
+          printf("Max value of %dth array = %d\n", j, max);
+      }
 
-      printf("(Seed %d, Size %d) Max value = %d, Time = %g s\n", s, n, max, t2-t1);
+  }
+  if (rank == 0){
+    printf("(Seed %d, Size %d) Computation time : %g s\n", s, n, t2-t1);
   }
   MPI_Finalize();
   return 0;

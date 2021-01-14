@@ -71,11 +71,13 @@ int main(int argc, char**argv) {
           //printf("Processing the %dth array\n", i);
           /* if size != 1 then send arrays */
           if (size != 1){
-              //printf("Sending message to the machine %d\n", i%m + 1);
-              MPI_Send(tab[i], n, MPI_INTEGER, i%m + 1, i, MPI_COMM_WORLD);
+              //printf("Sending message to the machine %d\n", i%(size-1) + 1);
+              MPI_Send(tab[i], n, MPI_INTEGER, i%(size-1) + 1, i, MPI_COMM_WORLD);
           }
       }
+      t2=MPI_Wtime();
       //printf("Finished sending message\n");
+      printf("(Seed %d, Size %d) Computation time : %g s\n", s, n, t2-t1);
       for(i=0; i<m; i++){
           /* if size = 1 */
           if (size == 1){
@@ -90,8 +92,7 @@ int main(int argc, char**argv) {
               MPI_Recv(&max, 1, MPI_INTEGER, MPI_ANY_SOURCE, i, MPI_COMM_WORLD, &sta);
           }
           /* stop the measurement */
-          t2=MPI_Wtime();
-          printf("(Seed %d, Size %d) Max value of %dth array = %d, Time = %g s\n", s, n, i, max, t2-t1);
+          printf("Max value of %dth array = %d\n", i, max);
       }
 
 
