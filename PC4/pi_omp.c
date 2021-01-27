@@ -41,7 +41,7 @@ main( int argc, char ** argv )
 	/* Initialize the pseudo-random number generator */
     struct drand48_data buf;
 	srand48_r(seed + omp_get_thread_num(), &buf);
-    printf("Using thread %d with seed = %d\n", omp_get_thread_num(), seed+omp_get_thread_num());
+//printf("Using thread %d with seed = %d\n", omp_get_thread_num(), seed+omp_get_thread_num());
 #pragma omp for schedule(static, 100)
         for( i = 0 ; i < N ; i++ ) 
         {
