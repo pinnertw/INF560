@@ -1,0 +1,26 @@
+Compile : -fopenmp
+
+functions:
+int omp_get_thread_num() : get the thread's number.
+
+#ifdef _OPENMP
+    omp_in_parallel() : 0 if not in parallel, 1 if so.
+#endif
+
+
+
+clauses:
+#pragma omp (parallel) 
+default(none)
+num_threads(int) : set the number of threads
+shared : share the same data.
+private : we create the same type of data for each threads. It can be any value at the beginning.
+firstprivate(a) : initialize the a with it's value before the {}
+for schedule(static) : split for into (nb) pieces for parallelization.
+for schedule(static, 1) : 1 at each time
+for reduction(+:s) reduction(*:p,r) : reduce the result on the end.
+
+
+
+ENV_VARIABLE:
+OMP_NUM_THREADS=2
