@@ -118,7 +118,7 @@ int main(int argc, char *argv[]) {
   scale_color = (double) (max_color - min_color) / (double) (maxiter - 1);
 
   /* Calculate points and display */
-#pragma omp parallel for private(col,c, k, temp, z, lengthsq)
+#pragma omp parallel for private(col,c, k, temp, z, lengthsq), schedule(dynamic, 1)
   for (row = 0; row < height; ++row) {
     ulong couleur[width];
 
@@ -135,11 +135,11 @@ int main(int argc, char *argv[]) {
       /* Calculate z0, z1, .... until divergence or maximum iterations */
       k = 0;
       do  {
-	temp = z.r*z.r - z.i*z.i + c.r;
-	z.i = 2*z.r*z.i + c.i;
-	z.r = temp;
-	lengthsq = z.r*z.r + z.i*z.i;
-	++k;
+        temp = z.r*z.r - z.i*z.i + c.r;
+        z.i = 2*z.r*z.i + c.i;
+        z.r = temp;
+        lengthsq = z.r*z.r + z.i*z.i;
+        ++k;
       } while (lengthsq < (N*N) && k < maxiter);
 
       /* Scale color and display point  */
