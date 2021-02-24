@@ -2,3 +2,5 @@ gcc -I/dir/mpi/include -o hello hello.c -L/dir/mpi/lib -lmpi
 -I : header-file directory
 -L : Library directory
 -l : Library name
+
+-fopenmp
