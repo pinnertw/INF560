@@ -1,15 +1,20 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <cuda_runtime.h>
+#include <cuda.h>
 
 __global__ void
 compute_stringKernel(char* res, char* a, char* b, char* c, int length){
 /* Add on device with kernel execution */
     int i;
-    i = blockIdx.x * blockDim.x + threadIdx.x;
-    if (i<length){
-        res[i] = a[i] + b[i] + c[i] ; 
+    int index;
+    int nb_threads;
+    index=blockIdx.x * blockDim.x + threadIdx.x;
+    nb_threads=blockDim.x * gridDim.x;
+    if (index<length){
+        for (i=index; i<length; i+= nb_threads){
+            res[i] = a[i] + b[i] + c[i] ; 
+        }
     }
 }
 
@@ -37,7 +42,7 @@ void compute_string( char * res, char * a, char * b, char *c, int length )
     cudaMemcpy(d_c, c, total_size, cudaMemcpyHostToDevice);
 
     /* execute the kernel */
-    compute_stringKernel<<<1, 30>>>(d_res, d_a, d_b, d_c, length);
+    compute_stringKernel<<<10, 5>>>(d_res, d_a, d_b, d_c, length);
 
     /* return the result from device to CPU */
     cudaMemcpy(res, d_res, total_size, cudaMemcpyDeviceToHost);
