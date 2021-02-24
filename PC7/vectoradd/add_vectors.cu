@@ -47,20 +47,20 @@ void vectoradd(int* A, int* B, int* C, int n){
 int main(int argc, char**argv) {
   int s ;
   int n ;
-  int i, j;
+  int j;
   struct timeval t1, t2;
   double duration;
 
   /* Check the input arguments */
   if(argc <3) {
-    printf("Usage: %s S N\n", argv[0]);
-    printf( "\tS: seed for pseudo-random generator\n" ) ;
+    printf("Usage: %s N S\n", argv[0]);
     printf( "\tN: size of the array\n" ) ;
+    printf( "\tS: seed for pseudo-random generator\n" ) ;
     exit( 1 ) ;
   }
 
-  s = atoi(argv[1]);
-  n = atoi(argv[2]);
+  n = atoi(argv[1]);
+  s = atoi(argv[2]);
   srand48(s);
 
   /* Allocate the array */
@@ -102,13 +102,13 @@ int main(int argc, char**argv) {
     printf("%d  ", B[i]);
   }
   printf("\n");
-#endif
   /* print result */
   printf("results:\n");
   for(i=0; i<n; i++) {
     printf("%d  ", C[i]);
   }
   printf("\n");
+#endif
   printf("(Seed %d, Size %d) Computation time : %g s\n", s, n, duration);
   return 0;
 }

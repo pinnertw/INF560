@@ -1,2 +1,2 @@
-nvcc -o vectoradd vectoradd.cu 
-./vectoradd 50 15
+nvcc -o vectoradd add_vectors.cu 
+./vectoradd 1000000 4 
